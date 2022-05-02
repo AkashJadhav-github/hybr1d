@@ -5,8 +5,8 @@ const sellerController = require('../controllers/sellerController');
 
 
 /* GET users listing. */
-router.post('/create-catalog', sellerController.create);
+router.post('/create-catalog', middleware.allowIfLoggedin, sellerController.create);
 
-router.get('/orders', sellerController.getAllOrders);
+router.get('/orders', middleware.allowIfLoggedin, sellerController.getAllOrders);
 
 module.exports = router;

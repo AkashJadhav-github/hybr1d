@@ -5,10 +5,10 @@ const buyerController = require('../controllers/buyerController');
 
 
 /* GET users listing. */
-router.get('/list-of-sellers', buyerController.getSellers);
+router.get('/list-of-sellers', middleware.allowIfLoggedin, buyerController.getSellers);
 
-router.get('/seller-catalog/:seller_id', buyerController.getSellerCatalog)
+router.get('/seller-catalog/:seller_id', middleware.allowIfLoggedin, buyerController.getSellerCatalog)
 
-router.post('/create-order/:seller_id', buyerController.createOrder);
+router.post('/create-order/:seller_id', middleware.allowIfLoggedin, buyerController.createOrder);
 
 module.exports = router;
