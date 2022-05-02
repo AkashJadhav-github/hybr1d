@@ -4,11 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var sellersRouter = require('./routes/sellers');
+var buyersRouter = require('./routes/buyers');
 
 require("dotenv").config({
   path: path.join(__dirname, "./.env")
@@ -35,11 +37,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({origin: true}))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/seller', sellersRouter);
+app.use('/api/buyer', buyersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -57,18 +62,6 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.use(async (req, res, next) => {
-  if (req.headers["x-access-token"]) {
-   const accessToken = req.headers["x-access-token"];
-   const { userId, exp } = await jwt.verify(accessToken, process.env.JWT_SECRET);
-   // Check if token has expired
-   if (exp < Date.now().valueOf() / 1000) { 
-    return res.status(401).json({ error: "JWT token has expired, please login to obtain a new one" });
-   } 
-   res.locals.loggedInUser = await User.findById(userId); next();
-  } else { 
-   next(); 
-  } 
- });
+
 
 module.exports = app;

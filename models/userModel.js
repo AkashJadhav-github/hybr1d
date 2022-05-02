@@ -3,12 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
+    username: {
         type: String,
         required: true,
         trim: true
@@ -17,14 +12,15 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    phone: {
-        type: Number,
-        required: true
+    type: {
+        type: Boolean,
+        required: true,
+        default: 0
     },
     accessToken: {
         type: String
     }
-});
+}, {timestamps: true});
 
 const User = mongoose.model('user', UserSchema);
 
