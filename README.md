@@ -7,7 +7,11 @@ This project is a standard template for a nodejs application. It has below thing
 Steps to run this project - 
 
 1) npm i (install all the required dependency when poped up during execution of the next command)
-2) npm start
+2) Add .env file to your project and set below credentials - 
+MONGODB_URI = 'mongodb+srv://<username>:<password>@cluster0.wswut.mongodb.net/hybr1d?retryWrites=true&w=majority'
+PORT = 3000
+JWT_SECRET='secret'
+3) npm start
 
 CURLs for the API listed below -
 1) Signup
