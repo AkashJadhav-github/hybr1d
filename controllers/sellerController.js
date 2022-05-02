@@ -1,7 +1,7 @@
 const sellerService = require('../services/sellerService');
 
 module.exports = {
-    create: async (req, res) => {
+    create: async (req, res, next) => {
         try {
             const { name, sellerId, products } = req.body;
             if (!name && !sellerId && !products) return next(new Error('Error in parameters!'));

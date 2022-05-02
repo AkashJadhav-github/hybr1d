@@ -30,7 +30,7 @@ module.exports = {
         }
     },
 
-    createOrder: async (req, res) => {
+    createOrder: async (req, res, next) => {
         try {
             const { buyerId, sellerId, productsId } = req.body;
             if (!buyerId && !sellerId && !productsId) return next(new Error('Please provide valid parameters'));
